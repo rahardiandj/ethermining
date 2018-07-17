@@ -1,0 +1,2 @@
+
+{"app":{"port":8080},"database":{"master":"localhost:3360"},"nsq":{"url":"http://localhost","port":4432},"mongodb":{"master":"localhost", "db_name":"ethermining"}}
