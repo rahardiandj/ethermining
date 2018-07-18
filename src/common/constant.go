@@ -1,6 +1,6 @@
 package common
 
 const (
-	Bookmark  = "bookmark"
-	Blacklist = "blacklist"
+	BookmarkDocName  = "bookmark"
+	BlacklistDocName = "blacklist"
 )

@@ -33,20 +33,20 @@ var transTest = common.Transaction{
 func SetBookmarkHandler(w http.ResponseWriter, r *http.Request) {
 	err := model.InsertBookmark(context.Background(), transTest)
 	if err != nil {
-		log.Printf("%v", err)
+		log.Printf("[Handler] [SetBookmarkHandler] %v\n", err)
 	}
 }
 
 func GetBookmarkHandler(w http.ResponseWriter, r *http.Request) {
 	bookmarks, err := model.GetBookmark(context.Background())
 	if err != nil {
-		log.Printf("%v", err)
+		log.Printf("[Handler] [GetBookmarkHandler] %v\n", err)
 	}
 
 	bodyJson, err := json.Marshal(bookmarks)
 
 	if err != nil {
-		log.Printf("%v", err)
+		log.Printf("[Handler] [GetBookmarkHandler] %v\n", err)
 	}
 
 	w.Write(bodyJson)
@@ -58,13 +58,13 @@ func RemoveBookmarkHandler(w http.ResponseWriter, r *http.Request) {
 	bookmark, err := model.GetBookmarkByTxID(ctx, transID)
 
 	if err != nil {
-		log.Printf("%v", err)
+		log.Printf("[Handler] [RemoveBookmarkHandler] %v\n", err)
 	}
 
 	err = model.RemoveBoomark(ctx, *bookmark)
 
 	if err != nil {
-		log.Printf("%v", err)
+		log.Printf("[Hanlder] [RemoveBookmarkHandler] %v\n", err)
 	}
 }
 

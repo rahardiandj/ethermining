@@ -19,14 +19,15 @@ func SetBlacklistHandler(w http.ResponseWriter, r *http.Request) {
 
 func GetBlacklistHandler(w http.ResponseWriter, r *http.Request) {
 	bookmarks, err := model.GetBookmark(context.Background())
+
 	if err != nil {
-		log.Printf("%v", err)
+		log.Printf("[Handler] [GetBlacklistHandler] %v\n", err)
 	}
 
 	bodyJson, err := json.Marshal(bookmarks)
 
 	if err != nil {
-		log.Printf("%v", err)
+		log.Printf("[Handler] [GetBlacklistHandler] %v\n", err)
 	}
 
 	w.Write(bodyJson)

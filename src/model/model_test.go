@@ -2,7 +2,6 @@ package model
 
 import (
 	"context"
-	"log"
 	"testing"
 
 	"github.com/rahardiandj/ethermining/src/common"
@@ -28,11 +27,43 @@ var transTest = common.Transaction{
 	Confirmations:      585807,
 }
 
+//Test Bookmark Directly To Database
 func TestCRUDBookmark(t *testing.T) {
-	log.Printf("Test 2")
 	err := InsertBookmark(context.Background(), transTest)
-	log.Printf("Test 3")
 	if err != nil {
-		t.Log(err)
+		t.Log("[TestCRUDBookmark] [InsertBookmark]", err)
+	}
+
+	bookmark, err := GetBookmarkByTxID(context.Background(), transTest.Hash)
+
+	if err != nil {
+		t.Log("[TestCRUDBookmark] [GetBookmarkByTxID]", err)
+	}
+
+	err = RemoveBoomark(context.Background(), *bookmark)
+
+	if err != nil {
+		t.Log("[TestCRUDBookmark] [RemoveBoomark]", err)
+	}
+
+}
+
+//Test Blacklist Directly to Database
+func TestCRUDBlacklist(t *testing.T) {
+	err := InsertBlacklist(context.Background(), transTest)
+	if err != nil {
+		t.Log("[TestCRUDBookmark] [Insert]", err)
+	}
+
+	blacklist, err := GetBlacklistByTxID(context.Background(), transTest.Hash)
+
+	if err != nil {
+		t.Log("[TestCRUDBookmark] [Insert]", err)
+	}
+
+	err = RemoveBlacklist(context.Background(), *blacklist)
+
+	if err != nil {
+		t.Log("[TestCRUDBookmark] [RemoveBlacklist]", err)
 	}
 }

@@ -8,43 +8,50 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-type BookmarkModel struct {
-}
-
+//InsertBookmark is to Insert Bookmarked Transaction to Documents
 func InsertBookmark(ctx context.Context, bookmark common.Transaction) error {
-	err := db.C(common.Bookmark).Insert(bookmark)
+	err := db.C(common.BookmarkDocName).Insert(bookmark)
 	if err != nil {
-		log.Println(err)
+		log.Println("[Model] [InsertBookmark] : ", err)
 	}
 	return err
 
 }
 
+//GetBookmark is to Get All Bookmark Transaction from Documents
+//TODO Limit the number transaction and include filtering
 func GetBookmark(ctx context.Context) ([]common.Transaction, error) {
 	var transactions = []common.Transaction{}
 
-	err := db.C(common.Bookmark).Find(bson.M{}).All(&transactions)
+	err := db.C(common.BookmarkDocName).Find(bson.M{}).All(&transactions)
 
 	if err != nil {
-		log.Println(err)
+		log.Println("[Model] [GetBookmark] : ", err)
 	}
 
 	return transactions, err
 }
 
+//GetBookmarkByTxID is to Get Bookmarked Transaction by hash code
 func GetBookmarkByTxID(ctx context.Context, transID string) (*common.Transaction, error) {
 
 	var bookmark = common.Transaction{}
-	err := db.C(common.Bookmark).FindId(transID).One(&bookmark)
+	err := db.C(common.BookmarkDocName).FindId(transID).One(&bookmark)
+
+	if err != nil {
+		log.Println("[Model] [GetBookmarkByTxID] : ", err)
+	}
+
 	return &bookmark, err
 }
 
+//RemoveBoomark is to Remove Blacklisted Transaction
 func RemoveBoomark(ctx context.Context, bookmark common.Transaction) error {
 
-	err := db.C(common.Bookmark).Remove(&bookmark)
+	err := db.C(common.BookmarkDocName).Remove(&bookmark)
 
 	if err != nil {
-		log.Println(err)
+		log.Println("[Model] [RemoveBoomark] : ", err)
 	}
 	return err
 }
