@@ -24,6 +24,7 @@ func TestConfig(t *testing.T) {
 	var mongodbconf = MongoDB{
 		Master: "http://localhost:27017",
 	}
+
 	var config = Configuration{
 		App:      appconf,
 		Database: dbconf,

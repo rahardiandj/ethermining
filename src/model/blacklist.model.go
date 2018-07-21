@@ -10,7 +10,7 @@ import (
 
 //InsertBlacklist is to Insert Blacklisted Transaction to Documents
 func InsertBlacklist(ctx context.Context, blacklist common.Transaction) error {
-	err := db.C(common.BlacklistDocName).Insert(&blacklist)
+	err := db.C(constant.BlacklistDocName).Insert(&blacklist)
 
 	if err != nil {
 		log.Println("[Model] [InsertBlacklist] : ", err)
@@ -24,7 +24,7 @@ func InsertBlacklist(ctx context.Context, blacklist common.Transaction) error {
 func GetBlacklist(ctx context.Context) ([]common.Transaction, error) {
 	var transactions = []common.Transaction{}
 
-	err := db.C(common.BlacklistDocName).Find(bson.M{}).All(&transactions)
+	err := db.C(constant.BlacklistDocName).Find(bson.M{}).All(&transactions)
 
 	if err != nil {
 		log.Println("[Model] [GetBlacklist] : ", err)
@@ -37,7 +37,7 @@ func GetBlacklist(ctx context.Context) ([]common.Transaction, error) {
 func GetBlacklistByTxID(ctx context.Context, transID string) (*common.Transaction, error) {
 
 	var bookmark = common.Transaction{}
-	err := db.C(common.BookmarkDocName).FindId(transID).One(&bookmark)
+	err := db.C(constant.BookmarkDocName).FindId(transID).One(&bookmark)
 
 	if err != nil {
 		log.Println("[Model] [GetBookmarkByTxID] : ", err)
@@ -48,7 +48,7 @@ func GetBlacklistByTxID(ctx context.Context, transID string) (*common.Transactio
 
 //RemoveBlacklist is to Get Blacklisted Transaction
 func RemoveBlacklist(ctx context.Context, blacklist common.Transaction) error {
-	err := db.C(common.BlacklistDocName).Remove(&blacklist)
+	err := db.C(constant.BlacklistDocName).Remove(&blacklist)
 
 	if err != nil {
 		log.Println("[Model] [RemoveBlacklist] : ", err)
