@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/rahardiandj/ethermining/src/common"
+	"github.com/rahardiandj/ethermining/src/constant"
 	"gopkg.in/mgo.v2/bson"
 )
 

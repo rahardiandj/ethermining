@@ -5,12 +5,13 @@ import (
 	"log"
 
 	"github.com/rahardiandj/ethermining/src/common"
+	"github.com/rahardiandj/ethermining/src/constant"
 	"gopkg.in/mgo.v2/bson"
 )
 
 //InsertBookmark is to Insert Bookmarked Transaction to Documents
 func InsertBookmark(ctx context.Context, bookmark common.Transaction) error {
-	err := db.C(common.BookmarkDocName).Insert(bookmark)
+	err := db.C(constant.BookmarkDocName).Insert(bookmark)
 	if err != nil {
 		log.Println("[Model] [InsertBookmark] : ", err)
 	}
@@ -23,7 +24,7 @@ func InsertBookmark(ctx context.Context, bookmark common.Transaction) error {
 func GetBookmark(ctx context.Context) ([]common.Transaction, error) {
 	var transactions = []common.Transaction{}
 
-	err := db.C(common.BookmarkDocName).Find(bson.M{}).All(&transactions)
+	err := db.C(constant.BookmarkDocName).Find(bson.M{}).All(&transactions)
 
 	if err != nil {
 		log.Println("[Model] [GetBookmark] : ", err)
@@ -36,7 +37,7 @@ func GetBookmark(ctx context.Context) ([]common.Transaction, error) {
 func GetBookmarkByTxID(ctx context.Context, transID string) (*common.Transaction, error) {
 
 	var bookmark = common.Transaction{}
-	err := db.C(common.BookmarkDocName).FindId(transID).One(&bookmark)
+	err := db.C(constant.BookmarkDocName).FindId(transID).One(&bookmark)
 
 	if err != nil {
 		log.Println("[Model] [GetBookmarkByTxID] : ", err)
@@ -48,7 +49,7 @@ func GetBookmarkByTxID(ctx context.Context, transID string) (*common.Transaction
 //RemoveBoomark is to Remove Blacklisted Transaction
 func RemoveBoomark(ctx context.Context, bookmark common.Transaction) error {
 
-	err := db.C(common.BookmarkDocName).Remove(&bookmark)
+	err := db.C(constant.BookmarkDocName).Remove(&bookmark)
 
 	if err != nil {
 		log.Println("[Model] [RemoveBoomark] : ", err)
