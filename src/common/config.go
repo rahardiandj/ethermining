@@ -7,10 +7,11 @@ import (
 )
 
 type Configuration struct {
-	App      `json:"app"`
-	Database `json:"database"`
-	NSQ      `json:"nsq"`
-	MongoDB  `json:"mongodb"`
+	App         `json:"app"`
+	Database    `json:"database"`
+	NSQ         `json:"nsq"`
+	MongoDB     `json:"mongodb"`
+	APIEtherium `json:"api_etherium"`
 }
 
 type Database struct {
@@ -31,10 +32,16 @@ type MongoDB struct {
 	DBName string `json:"db_name"`
 }
 
+type APIEtherium struct {
+	URL     string `json:"url"`
+	Address string `json:"address"`
+}
+
+var config = Configuration{}
+
 //Init Config
 func (c *Configuration) Init() {
 
-	config := Configuration{}
 	err := gonfig.GetConf("config/ethermining.development.json", &config)
 
 	if err != nil {
@@ -45,6 +52,11 @@ func (c *Configuration) Init() {
 	c.Database = config.Database
 	c.MongoDB = config.MongoDB
 	c.NSQ = config.NSQ
+
+}
+
+func GetConfig() *Configuration {
+	return &config
 }
 
 func (c *Configuration) InitTest() {
@@ -60,4 +72,5 @@ func (c *Configuration) InitTest() {
 	c.Database = config.Database
 	c.MongoDB = config.MongoDB
 	c.NSQ = config.NSQ
+	c.APIEtherium = config.APIEtherium
 }

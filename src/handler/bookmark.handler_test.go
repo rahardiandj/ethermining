@@ -6,25 +6,25 @@ import (
 )
 
 //Testing Get BlackList Handler using recorder
-func TestGetBlacklistHandler(t *testing.T) {
+func TestGetBookmarkHandler(t *testing.T) {
 
 	tests := map[string]struct {
 		h    func(w http.ResponseWriter, r *http.Request)
 		recs []recFunc
 	}{
-		"testBlacklistHandlerSuccess": {
+		"testBookmarktHandlerSuccess": {
 			func(w http.ResponseWriter, r *http.Request) {},
 			recFuncs(checkStatus(200)),
 		},
 		{
-			"testBlacklistContent": {
+			"testBlookmarktContent": {
 				func(w http.ResponseWriter, r *http.Request) {},
 				recFunc(checkStatus(201), checkHeader("Content-Type", "application/json"), checkBody("hash")),
 			},
 		},
 	}
 
-	r, _ := http.NewRequest("GET", "http://localhost:9090/v1/api/blacklist/list", nil)
+	r, _ := http.NewRequest("GET", "http://localhost:9090/v1/api/bookmark/list", nil)
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
