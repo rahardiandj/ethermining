@@ -7,11 +7,12 @@ import (
 )
 
 type Configuration struct {
-	App         `json:"app"`
-	Database    `json:"database"`
-	NSQ         `json:"nsq"`
-	MongoDB     `json:"mongodb"`
-	APIEtherium `json:"api_etherium"`
+	App                  `json:"app"`
+	Database             `json:"database"`
+	NSQ                  `json:"nsq"`
+	MongoDB              `json:"mongodb"`
+	APIEtherium          `json:"api_etherium"`
+	CronFetchTransaction `json:"cron_fetch_transaction"`
 }
 
 type Database struct {
@@ -35,6 +36,11 @@ type MongoDB struct {
 type APIEtherium struct {
 	URL     string `json:"url"`
 	Address string `json:"address"`
+}
+
+type CronFetchTransaction struct {
+	Enabled  bool   `json:"enabled"`
+	Interval string `json:"interval"`
 }
 
 var config = Configuration{}
